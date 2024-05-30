@@ -6,42 +6,41 @@ import random
 import re
 import sys
 
-from collections import defaultdict
+#
+# Complete the 'bitwiseAnd' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER N
+#  2. INTEGER K
+#
 
-#
-# Complete the 'countPairs' function below.
-#
-# The function is expected to return a LONG_INTEGER.
-# The function accepts INTEGER_ARRAY arr as parameter.
-#
-
-def countPairs(arr):
-    po2 = lambda x: x > 0 and not (x & (x - 1))
-    d = defaultdict(int)
-    for x in arr:
-        d[x] += 1
-    d = list(d.items())
-    ans = 0
-    for i in range(len(d)):
-        a, a_cnt = d[i]
-        for j in range(i, len(d)):
-            b, b_cnt = d[j]
-            if po2(a & b):
-                if a == b:
-                    ans += (a_cnt * (a_cnt - 1)) // 2
-                else:
-                    ans += a_cnt * b_cnt
-    return ans          
+def bitwiseAnd(N, K):
+    # Write your code here
+    max_bitwise = 0
+    for i in range(1, N+1):
+        for j in range(i+1,N+1):
+            curr_bitwise = i & j
+            if curr_bitwise > max_bitwise and curr_bitwise<K:
+                max_bitwise = curr_bitwise
+                if max_bitwise == K-1:
+                    return max_bitwise
+    return max_bitwise
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
-    arr_count = int(input().strip())
-    arr = []
 
-    for _ in range(arr_count):
-        arr_item = int(input().strip())
-        arr.append(arr_item)
+    t = int(input().strip())
 
-    result = countPairs(arr)
-    fptr.write(str(result) + '\n')
+    for t_itr in range(t):
+        first_multiple_input = input().rstrip().split()
+
+        count = int(first_multiple_input[0])
+
+        lim = int(first_multiple_input[1])
+
+        res = bitwiseAnd(count, lim)
+
+        fptr.write(str(res) + '\n')
+
     fptr.close()
