@@ -37,20 +37,16 @@ class FWT:
         return res
 
 def sortedSum(a):
-    A_LIMIT = 10**6
-    M = 10**9 + 7
-    # pre.rank(x) := How many digits are before x.
-    pre = FWT(A_LIMIT + 1)
-    # post.rank(x) := How much of the total sum is after x.
-    post = FWT(A_LIMIT + 1)
+    lim = 10**6
+    n = 10**9 + 7
+    pre = FWT(lim + 1)
+    post = FWT(lim + 1)
     cur_fn = ans = total = 0
     for i in range(len(a)):
         pos = pre.rank(a[i]) + 1
-        # The part of f(n) which will also be added because
-        # it gets shifted one to the right.
         greater = total - post.rank(a[i])
-        cur_fn = (cur_fn + pos * a[i] + greater) % M
-        ans = (ans + cur_fn) % M
+        cur_fn = (cur_fn + pos * a[i] + greater) % n
+        ans = (ans + cur_fn) % n
         pre.add(a[i], 1)
         post.add(a[i], a[i])
         total += a[i]
