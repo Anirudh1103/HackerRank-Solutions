@@ -35,9 +35,7 @@ def countPairs(arr):
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
     arr_count = int(input().strip())
-
     arr = []
 
     for _ in range(arr_count):
@@ -45,7 +43,5 @@ if __name__ == '__main__':
         arr.append(arr_item)
 
     result = countPairs(arr)
-
     fptr.write(str(result) + '\n')
-
     fptr.close()
